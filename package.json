@@ -1,0 +1,11 @@
+{
+    "name": "pingbot",
+    "version": "1.0.0",
+    "description": "My first discord bot",
+    "main": "bot.js",
+    "author": "Nick Romano",
+    "dependencies": {
+        "discord.js": "^11.5.1",
+        "winston": "^3.2.1"
+    }
+}
