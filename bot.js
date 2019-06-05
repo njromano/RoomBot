@@ -6,18 +6,16 @@ logger.remove(logger.transports.Console)
 logger.add(new logger.transports.Console(), { colorize: true })
 logger.level = 'debug'
 
-var bot = new Discord.Client({
+var client = new Discord.Client({
     token: auth.token,
     autorun: true
 })
 
-bot.on('ready', function(evt) {
+client.on('ready', function(evt) {
     logger.info("Connected")
-    logger.info("Logged in as:")
-    logger.info(bot.username + "-(" + bot.id + ")")
 })
 
-bot.on("message", msg => {
+client.on("message", msg => {
     let messageText = msg.content
     if (messageText.substr(0,1) === "!") {
         let args = messageText.substr(1).split(" ")
@@ -26,10 +24,23 @@ bot.on("message", msg => {
 
         switch(cmd) {
             case "ping":
-                msg.reply("pong!")
+                pong(msg)
+                break
+            case "join":
+                join(msg, args)
                 break
         }
     }
 })
 
-bot.login(auth.token)
+function pong(msg) {
+   msg.reply("pong!") 
+}
+
+function join(msg, args) {
+    let room = args[0]
+    let server = msg.guild
+    server.createChannel(room, "text")
+}
+
+client.login(auth.token)
