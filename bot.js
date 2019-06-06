@@ -38,6 +38,7 @@ function pong(msg) {
 }
 
 function join(msg, args) {
+    if (!args[0]) return
     let room = args[0]
     let server = msg.guild
     server.createChannel(room, "text")
