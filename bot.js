@@ -41,7 +41,29 @@ function join(msg, args) {
     if (!args[0]) return
     let room = args[0]
     let server = msg.guild
-    server.createChannel(room, "text")
+    server.createChannel(room, {type: "text"})
+        .then(channel => {
+            channel.overwritePermissions(
+                msg.guild.roles.find(it => it.name === "@everyone"), 
+                {
+                    "CREATE_INSTANT_INVITE": false,
+                    "VIEW_CHANNEL": false,
+                    "CONNECT": false,
+                    "SPEAK": false
+                }
+            )
+            .then(channel => {
+                channel.overwritePermissions(
+                    msg.member.user.id,
+                    {
+                        "CREATE_INSTANT_INVITE": true,
+                        "VIEW_CHANNEL": true,
+                        "CONNECT": true,
+                        "SPEAK": true
+                    }
+                )
+            })
+        })
 }
 
 client.login(auth.token)
