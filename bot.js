@@ -40,8 +40,10 @@ function pong(msg) {
 function join(msg, args) {
     if (!args[0]) return
     let room = args[0]
+    let type = args[1]
+
     let server = msg.guild
-    server.createChannel(room, {type: "text"})
+    server.createChannel(room, { type })
         .then(channel => {
             channel.overwritePermissions(
                 msg.guild.roles.find(it => it.name === "@everyone"), 
