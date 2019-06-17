@@ -17,7 +17,7 @@ client.on('ready', function(evt) {
 
 client.on("message", msg => {
     let messageText = msg.content
-    if (messageText.substr(0,1) === "!") {
+    if (messageText.substr(0,1) === "|") {
         let args = messageText.substr(1).split(" ")
         let cmd = args[0]
         args = args.splice(1)
